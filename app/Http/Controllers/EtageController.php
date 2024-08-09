@@ -21,9 +21,9 @@ class EtageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'numero' => [ 'required','unique:etages' ],
+            'numero' => [ 'required','unique:etages','max:255' ],
             'nombreAppartements' => [ 'required','unique:etages' ],
-            'description' => ['required','unique:etages'],
+            'description' => ['required'],
         ]);
         $etage = Etage::query()->create([
             'numero' => $request->numero,
@@ -47,7 +47,8 @@ class EtageController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nom' => ['required','max:255'],
+            'numero' => ['required','max:255'],
+            'nombreAppartements' => [ 'required','unique:etages' ],
             'description' => ['required'],
         ]);
         $etage = Etage::findOrFail($id);
